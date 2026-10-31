@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>바이브 수학 — 중학교 수학 시리즈</title>
+<meta name="description" content="《바이브 수학》 중학교 1·2·3학년 상·하 6권에 실린 앱 활동을 권별로 둘러보고 바로 열어 볼 수 있는 공개 사이트입니다.">
+<meta name="author" content="최경식(목원대학교 교수)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><img class="brand-mark" src="assets/logo.png" alt="" width="32" height="32">바이브 수학<small>중학교 1~3학년</small></a>
+    <nav aria-label="바로가기">
+      <a href="#about">이 책은</a>
+      <a href="#volumes" class="keep">전체 구성</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow" data-v="eyebrow">중학교 1·2·3학년 · 상·하 6권</div>
+        <h1>바이브 수학<span class="grade" data-v="tagline">만지고 움직이며 배우는 중학교 수학</span></h1>
+        <p class="lead">중학교 3년 동안 배우는 핵심 개념을 학년과 학기에 따라 상·하 여섯 권으로 나누었습니다. 각 권에 실린 앱 활동은 이곳에서 모두 바로 열어 볼 수 있습니다. <span data-v="status-line"></span></p>
+        <div class="cta">
+          <a class="btn primary" id="ctaLatest" href="#volumes">활동 둘러보기 →</a>
+          <a class="btn" href="#volumes">전체 구성 보기</a>
+        </div>
+        <a class="again" id="again" hidden></a>
+        <div class="stats">
+          <div class="stat"><b data-n="vols"></b><span>권 구성</span></div>
+          <div class="stat"><b data-n="live"></b><span>공개된 권</span></div>
+          <div class="stat"><b data-n="apps"></b><span>공개 앱 활동</span></div>
+          <div class="stat"><b data-n="planned"></b><span>준비 중인 권</span></div>
+        </div>
+      </div>
+      <div class="fan" id="fan" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section class="band" id="about">
+    <div class="wrap">
+      <div class="eyebrow">이 책은</div>
+      <h2>외우는 수학이 아니라 직접 즐기는 탐구</h2>
+      <p class="intro">《바이브 수학》 시리즈는 중학교 3년 동안 배울 핵심 개념을 스마트폰이나 태블릿에서 손가락으로 직접 움직이며 ‘살아 있는 느낌(Vibe)’으로 배우도록 만든 책입니다.</p>
+      <div class="ways">
+        <div class="way"><h3><i style="background:var(--p1)"></i>만지면서 배우는 수학</h3><p>수를 조작하고 도형을 움직여 보며 “아, 이래서 이런 원리가 나왔구나!” 하고 스스로 깨닫습니다.</p></div>
+        <div class="way"><h3><i style="background:var(--p2)"></i>스스로 해 보는 실험</h3><p>“모양을 바꾸면 어떻게 될까?”, “수를 늘리면 어떤 규칙이 생길까?” 궁금한 점을 앱에서 바로 확인합니다.</p></div>
+        <div class="way"><h3><i style="background:var(--p3)"></i>3년을 잇는 길잡이</h3><p>수와 연산에서 함수, 방정식, 기하까지, 눈으로 보고 조작하며 생각하는 힘을 차근차근 기릅니다.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="volumes">
+    <div class="wrap">
+      <div class="eyebrow">전체 구성</div>
+      <h2>학년마다 상·하 두 권, 모두 여섯 권</h2>
+      <p class="intro">공개된 권을 누르면 그 권의 앱 활동 전체를 볼 수 있습니다. 준비 중인 권의 구성은 예정이며 바뀔 수 있습니다.</p>
+      <div class="vols" id="vols"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b>바이브 수학 · 중학교 1~3학년 시리즈</b><br><span data-v="foot-author">저자: 최경식(목원대학교 교수)</span><br>문의: <a data-v="email" href="mailto:kyeong@mokwon.ac.kr">kyeong@mokwon.ac.kr</a></div>
+    <div>활동 앱은 웹 브라우저에서 바로 실행됩니다.<br>스마트폰과 태블릿에서 가장 잘 동작합니다.</div>
+  </div>
+</footer>
+
+<script src="assets/series.js"></script>
+<script>
+(() => {
+  const SITE = window.VM_SITE || {};
+  const VOLS = window.VM_VOLUMES || [];
+  const U = window.VM_UTIL;
+  const el = (tag, props = {}, ...kids) => {
+    const n = Object.assign(document.createElement(tag), props);
+    kids.forEach((k) => k != null && n.append(k));
+    return n;
+  };
+  const fill = (key, text) => document.querySelectorAll(`[data-v="${key}"]`).forEach((n) => { n.textContent = text; });
+
+  const live = VOLS.filter((v) => v.status === 'live');
+  const latest = live[live.length - 1];
+
+  // 제목·저자·연락처
+  fill('tagline', SITE.tagline);
+  fill('eyebrow', `중학교 1·2·3학년 · 상·하 ${VOLS.length}권`);
+  fill('foot-author', `저자: ${SITE.author}`);
+  document.querySelectorAll('[data-v="email"]').forEach((a) => { a.textContent = SITE.email; a.href = `mailto:${SITE.email}`; });
+
+  // 머리 숫자와 공개 상황 한 줄
+  const nums = { vols: VOLS.length, live: live.length, apps: live.reduce((n, v) => n + (v.apps || 0), 0), planned: VOLS.length - live.length };
+  document.querySelectorAll('[data-n]').forEach((n) => { n.textContent = nums[n.dataset.n]; });
+  fill('status-line', live.length
+    ? `지금은 ${live.map((v) => U.label(v)).join(', ')}이 공개되어 있고, 나머지 ${nums.planned}권은 준비되는 대로 이곳에 더해집니다.`
+    : '각 권은 준비되는 대로 이곳에 더해집니다.');
+
+  // 큰 버튼은 가장 최근에 공개된 권으로
+  const cta = document.getElementById('ctaLatest');
+  if (latest) { cta.href = `${latest.id}/index.html`; cta.textContent = `${U.label(latest)} 활동 둘러보기 →`; }
+
+  // 이 브라우저가 기억하는 '최근에 연 활동'(권별 vm:recent:*)이 있으면 가장 최근 것으로 이어서 보기 링크
+  const again = document.getElementById('again');
+  try {
+    const remembered = live
+      .map((v) => { const list = JSON.parse(localStorage.getItem(`vm:recent:${v.id}`)) || []; const old = JSON.parse(localStorage.getItem(`vm:last:${v.id}`)); return { v, r: list[0] || old, n: list.length || (old ? 1 : 0) }; })
+      .filter((x) => x.r && x.r.id)
+      .sort((a, b) => (b.r.t || 0) - (a.r.t || 0))[0];
+    if (remembered && again) {
+      again.href = `${remembered.v.id}/index.html`;
+      const more = remembered.n > 1 ? ` 외 ${remembered.n - 1}개` : '';
+      again.replaceChildren('↩ 이어서 보기: ', el('b', { textContent: `${U.short(remembered.v)} · 그림 ${remembered.r.id} ${remembered.r.name || ''}`.trim() + more }));
+      again.hidden = false;
+    }
+  } catch (e) { /* localStorage 를 쓸 수 없는 환경이면 조용히 건너뜀 */ }
+
+  // 상단 펼침 화면: 가장 최근 공개 권의 앱 3개
+  const fan = document.getElementById('fan');
+  if (latest && latest.fan) {
+    latest.fan.forEach((f) => {
+      fan.append(el('figure', {}, el('img', { src: `${latest.id}/img/${f.id.replace('.', '-')}.jpg`, alt: '' }), el('figcaption', { textContent: f.name })));
+    });
+  }
+
+  // 학년별 행 × (상·하) 카드
+  const vols = document.getElementById('vols');
+  const grades = [...new Set(VOLS.map((v) => v.grade))];
+  grades.forEach((g, gi) => {
+    const list = VOLS.filter((v) => v.grade === g);
+    const row = el('div', { className: 'yr' });
+    row.style.setProperty('--pc', `var(--p${(gi % 4) + 1})`);
+    const summary = list.map((v) => `${v.vol} ${v.status === 'live' ? '공개' : '준비 중'}`).join(' · ');
+    row.append(el('div', { className: 'gh' }, el('div', { className: 'eyebrow', textContent: `Grade ${g}` }), el('h3', { textContent: `중학교 ${g}학년` }), el('p', { textContent: summary })));
+    list.forEach((v) => {
+      const isLive = v.status === 'live';
+      const kids = [
+        el('div', { className: 'head' },
+          el('span', { className: 'eyebrow', textContent: isLive ? `${v.vol}권 · 앱 활동 ${v.apps}개` : `${v.vol}권 · 준비 중` }),
+          el('span', { className: 'status' + (isLive ? ' live' : '') }, el('i'), isLive ? '공개' : '준비 중')),
+        el('h3', { textContent: U.label(v) }),
+        el('div', { className: 'parts-list' }, ...(v.parts || []).map((p) => el('span', { textContent: p }))),
+        el('div', { className: 'meta', textContent: isLive ? `${U.date(v.published)} 공개` : '구성(예정) · 공개 시기 미정' }),
+        el('div', { className: 'go', textContent: isLive ? '활동 둘러보기 →' : '준비되면 이곳에서 열립니다' }),
+      ];
+      const card = isLive
+        ? el('a', { className: 'vol live', href: `${v.id}/index.html` }, ...kids)
+        : el('div', { className: 'vol planned', ariaDisabled: 'true' }, ...kids);
+      row.append(card);
+    });
+    vols.append(row);
+  });
+})();
+</script>
+</body>
+</html>

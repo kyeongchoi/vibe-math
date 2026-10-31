@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ko" data-volume="gX-Y">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>바이브 수학 중학교 X학년 상·하</title>
+<meta name="description" content="《바이브 수학》 중학교 X학년 상·하권의 앱 활동을 단원별로 둘러보고 바로 열어 볼 수 있는 공개 사이트입니다.">
+<meta name="author" content="최경식(목원대학교 교수)">
+<!--
+  ┌─ 새 권 만들기 ───────────────────────────────────────────────
+  │ 1) 위 <html data-volume="gX-Y"> 를 이 권의 폴더 이름으로 (예: g1-2)
+  │ 2) <title> 과 <meta name="description"> 내용을 이 권에 맞게
+  │ 3) 맨 아래 <script id="vm-data"> 의 [ ] 안에 앱 활동 데이터 넣기
+  │ 4) assets/series.js 에서 이 권의 status 를 'live' 로, apps·published·fan 채우기
+  │ 그 밖의 제목·저자·편 버튼·단원 지도는 자동으로 채워집니다. (자세한 설명: ../README.md)
+  └──────────────────────────────────────────────────────────────
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+<link rel="icon" type="image/png" sizes="64x64" href="../assets/favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html" title="시리즈 전체 보기"><img class="brand-mark" src="../assets/logo.png" alt="" width="32" height="32">바이브 수학<small data-v="short">중X · 상</small></a>
+    <nav aria-label="바로가기">
+      <a href="../index.html">시리즈</a>
+      <a href="#about">이 책은</a>
+      <a href="#units">단원 지도</a>
+      <a href="#activities" class="keep">활동 전체</a>
+    </nav>
+    <select id="volSwitch" class="vol" aria-label="다른 권으로 이동"></select>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow" data-v="eyebrow">중학교 X학년 · 상권</div>
+        <h1>바이브 수학<span class="grade" data-v="grade">만지고 움직이며 배우는 중학교 X학년 수학</span></h1>
+        <p class="lead">종이 위에 멈춰 있는 기호 대신, 화면 속 카드를 놓고 수를 움직이며 규칙을 스스로 찾아갑니다. 책에 실린 앱 활동 <span data-n="total"></span>개를 이곳에서 모두 바로 열어 볼 수 있습니다.</p>
+        <div class="cta">
+          <a class="btn primary" href="#activities">활동 둘러보기 →</a>
+          <a class="btn" href="#units">단원 지도 보기</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><b data-n="total"></b><span>앱 활동</span></div>
+          <div class="stat"><b data-n="chapters"></b><span>장</span></div>
+          <div class="stat"><b data-n="sections"></b><span>소단원</span></div>
+          <div class="stat"><b data-n="star"></b><span>★ 추천 활동</span></div>
+        </div>
+      </div>
+      <div class="fan" id="fan" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section class="band" id="about">
+    <div class="wrap">
+      <div class="eyebrow">이 책은</div>
+      <h2>외우는 수학이 아니라 직접 즐기는 탐구</h2>
+      <p class="intro">《바이브 수학》 시리즈는 중학교 3년 동안 배울 핵심 개념을 스마트폰이나 태블릿에서 손가락으로 직접 움직이며 ‘살아 있는 느낌(Vibe)’으로 배우도록 만든 책입니다.</p>
+      <div class="ways">
+        <div class="way"><h3><i style="background:var(--p1)"></i>만지면서 배우는 수학</h3><p>수를 조작하고 도형을 움직여 보며 “아, 이래서 이런 원리가 나왔구나!” 하고 스스로 깨닫습니다.</p></div>
+        <div class="way"><h3><i style="background:var(--p2)"></i>스스로 해 보는 실험</h3><p>“모양을 바꾸면 어떻게 될까?”, “수를 늘리면 어떤 규칙이 생길까?” 궁금한 점을 앱에서 바로 확인합니다.</p></div>
+        <div class="way"><h3><i style="background:var(--p3)"></i>3년을 잇는 길잡이</h3><p>수와 연산에서 함수, 방정식, 기하까지, 눈으로 보고 조작하며 생각하는 힘을 차근차근 기릅니다.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="units">
+    <div class="wrap">
+      <div class="eyebrow">단원 지도</div>
+      <h2 data-v="parts-summary">편과 장의 구성</h2>
+      <p class="intro">소단원 이름을 누르면 그 소단원의 활동만 모아 볼 수 있습니다. 숫자는 활동 수입니다.</p>
+      <div class="parts" id="parts"></div>
+    </div>
+  </section>
+
+  <section class="band" id="activities">
+    <div class="wrap">
+      <div class="eyebrow">활동 전체</div>
+      <h2>앱 활동 갤러리</h2>
+      <p class="intro">카드를 누르면 활동 앱이 새 탭에서 열립니다. ★는 책에서 추천 표시가 붙은 활동입니다. 최근에 연 활동은 이 브라우저가 기억해 두었다가 아래에 모아 보여 줍니다.</p>
+      <div class="recent" id="recent" hidden></div>
+      <div class="filters">
+        <input type="search" id="q" placeholder="활동 이름이나 설명으로 찾기" aria-label="활동 찾기">
+        <div class="seg" id="partSeg" role="group" aria-label="편"></div>
+        <select id="chap" aria-label="장"></select>
+        <select id="typeSel" aria-label="활동 유형"></select>
+        <label class="toggle"><input type="checkbox" id="starOnly"> ★ 추천만</label>
+        <button type="button" class="clear" id="clear" hidden>필터 지우기</button>
+        <span class="count" id="count"></span>
+      </div>
+      <div id="gallery"></div>
+    </div>
+  </section>
+</main>
+
+<nav class="vol-nav" id="volNav" aria-label="다른 권"></nav>
+
+<footer>
+  <div class="wrap">
+    <div><b data-v="foot-title">바이브 수학 · 중학교 X학년 상</b><br><span data-v="foot-author">저자: 최경식(목원대학교 교수)</span><br>문의: <a data-v="email" href="mailto:kyeong@mokwon.ac.kr">kyeong@mokwon.ac.kr</a></div>
+    <div>활동 앱은 웹 브라우저에서 바로 실행됩니다.<br>스마트폰과 태블릿에서 가장 잘 동작합니다.</div>
+  </div>
+</footer>
+
+<script id="vm-data" type="application/json">[
+
+]</script>
+<script src="../assets/series.js"></script>
+<script src="../assets/volume.js"></script>
+</body>
+</html>
