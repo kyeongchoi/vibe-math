@@ -21,6 +21,26 @@ window.VM_SITE = {
   email: 'kyeong@mokwon.ac.kr',
 };
 
+/* ---------- 전자칠판·교실용 데스크톱 앱 (허브의 "앱 내려받기" 구역) ----------
+   파일은 GitHub 저장소의 Releases 에 올립니다 (저장소 파일 100 MB 제한 때문에 사이트 폴더에는 넣지 않음).
+   - base : 릴리스 파일 주소의 앞부분. 'OWNER/REPO' 를 실제 GitHub 아이디/저장소 이름으로 바꾸세요.
+            (예: https://github.com/kyeong-math/vibemath/releases/download/v1.2.0/)
+   - files: 릴리스에 올린 파일 이름 그대로. 새 판을 올리면 version · base · file · size 를 함께 고칩니다.
+   base 에 'OWNER/REPO' 가 남아 있으면 단추가 "준비 중"으로 표시됩니다. */
+window.VM_DESKTOP = {
+  version: '1.2.0', date: '2026-11-01',
+  base: 'https://github.com/kyeongchoi/vibe-math/releases/download/v1.2.0/',
+  guide: 'desktop/guide.html',
+  files: [
+    { os: 'windows', name: 'Windows 설치형', file: 'VibeMath-1.2.0-Windows-Setup.exe', size: '125 MB', recommended: true,
+      note: '바탕화면과 시작 메뉴에 바로가기가 생깁니다. 관리자 권한 없이 설치됩니다.', req: 'Windows 10 / 11 (64비트)' },
+    { os: 'windows', name: 'Windows 무설치형', file: 'VibeMath-1.2.0-Windows-Portable.exe', size: '112 MB',
+      note: 'USB 메모리에 넣어 두고 더블클릭하면 바로 실행됩니다.', req: 'Windows 10 / 11 (64비트)' },
+    { os: 'mac', name: 'macOS', file: 'VibeMath-1.2.0-macOS.dmg', size: '243 MB',
+      note: '열린 창에서 앱을 Applications 폴더로 끌어다 놓습니다. Apple Silicon · Intel 공용.', req: 'macOS 13 Ventura 이상' },
+  ],
+};
+
 window.VM_VOLUMES = [
   {
     id: 'g1-1', grade: 1, vol: '상', status: 'live',
