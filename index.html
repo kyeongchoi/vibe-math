@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
 <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/site.css?v=20261101b">
 </head>
 <body>
 <header class="top">
@@ -92,7 +92,7 @@
   </div>
 </footer>
 
-<script src="assets/series.js"></script>
+<script src="assets/series.js?v=20261101"></script>
 <script>
 (() => {
   const SITE = window.VM_SITE || {};
@@ -179,6 +179,9 @@
   // 데스크톱 앱 내려받기 (series.js 의 VM_DESKTOP)
   const D = window.VM_DESKTOP;
   const dl = document.getElementById('dl');
+  if (dl && !D) {
+    dl.append(el('p', { className: 'empty', textContent: '내려받기 목록을 불러오지 못했습니다. assets/series.js 가 최신 파일인지 확인해 주세요.' }));
+  }
   if (D && dl) {
     const ready = D.base && !/OWNER\/REPO/.test(D.base);
     fill('dl-version', `현재 판 ${D.version} (${U.date(D.date)})`);
