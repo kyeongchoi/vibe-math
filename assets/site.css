@@ -261,3 +261,24 @@ a.vol:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(19,26,46,.12)
 .dl-note b{color:var(--ink)}
 .dl-note a{font-weight:600;color:var(--p1)}
 @media (max-width:860px){.dl,.dl-notes{grid-template-columns:1fr}}
+
+/* QR 코드: 카드의 QR 단추와 전체 화면 모달 */
+.foot .acts,.mfoot .acts{display:inline-flex;align-items:center;gap:10px}
+button.qr{appearance:none;font:inherit;font-size:.74rem;font-weight:700;letter-spacing:.04em;color:var(--pc);background:color-mix(in srgb,var(--pc) 12%,transparent);border:1px solid color-mix(in srgb,var(--pc) 35%,transparent);border-radius:6px;padding:3px 7px;cursor:pointer;line-height:1.2}
+button.qr:hover{background:color-mix(in srgb,var(--pc) 22%,transparent)}
+.mfoot button.qr{font-size:.7rem;padding:2px 6px}
+.qr-modal{position:fixed;inset:0;z-index:100;background:rgba(19,26,46,.72);display:flex;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px)}
+.qr-modal[hidden]{display:none}
+body.qr-open{overflow:hidden}
+.qr-card{background:#fff;color:#131A2E;border-radius:20px;padding:22px 26px 20px;width:min(92vw,560px);max-height:94vh;overflow:auto;box-shadow:0 24px 80px rgba(0,0,0,.35);display:flex;flex-direction:column;gap:14px}
+.qr-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.qr-head h3{font-size:1.25rem;font-weight:700;margin:4px 0 0;line-height:1.3}
+.qr-head .eyebrow{color:#5B6579}
+.qr-close,.qr-copy{appearance:none;font:inherit;font-weight:600;border:1px solid #DDE3ED;background:#F5F7FB;color:#131A2E;border-radius:10px;padding:8px 12px;cursor:pointer;white-space:nowrap}
+.qr-close:hover,.qr-copy:hover{background:#EAEFF8}
+.qr-svg{align-self:center;width:min(78vw,60vh,440px);aspect-ratio:1;padding:14px;background:#fff;border:1px solid #E3E8F2;border-radius:16px}
+.qr-svg svg{display:block;width:100%;height:100%;shape-rendering:crispEdges}
+.qr-hint{margin:0;text-align:center;color:#5B6579;font-size:.95rem}
+.qr-foot{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
+.qr-foot code{font-family:var(--mono);font-size:.72rem;color:#5B6579;word-break:break-all;flex:1 1 200px;text-align:center}
+@media (max-width:600px){.qr-card{padding:18px 16px 16px}.qr-head h3{font-size:1.1rem}}

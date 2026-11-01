@@ -196,6 +196,53 @@
   if (typeSel) typeSel.addEventListener('change', () => { state.type = typeSel.value; render(); });
   clear.addEventListener('click', () => { Object.assign(state, { q: '', part: '', chap: '', section: '', star: false, type: '' }); syncControls(); render(); });
 
+  // ---------- QR 코드 (전자칠판에 크게 띄워 학생들이 스마트폰으로 찍게) ----------
+  // 앱 안(오프라인판)에서는 app_url 이 내장 파일이므로 원래 온라인 주소(app_url_online)를 쓴다.
+  const qrLink = (a) => (a.app_url_online && /^https?:/.test(a.app_url_online)) ? a.app_url_online
+    : (a.app_url && /^https?:/.test(a.app_url)) ? a.app_url : '';
+  function qrButton(a) {
+    const b = el('button', { type: 'button', className: 'qr', textContent: 'QR', title: `${a.name} — QR 코드 크게 보기`, ariaLabel: `${a.name} QR 코드 보기` });
+    b.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); showQR(a); });
+    return b;
+  }
+  let qrBox = null;
+  function showQR(a) {
+    const url = qrLink(a);
+    if (!url || typeof qrcode !== 'function') return;
+    if (!qrBox) {
+      qrBox = el('div', { className: 'qr-modal', role: 'dialog', ariaModal: 'true', hidden: true });
+      qrBox.addEventListener('click', (e) => { if (e.target === qrBox || e.target.closest('.qr-close')) hideQR(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !qrBox.hidden) hideQR(); });
+      document.body.append(qrBox);
+    }
+    const qr = qrcode(0, 'M');           // 0 = 크기 자동, M = 오류 정정 15%
+    qr.addData(url);
+    qr.make();
+    const svg = el('div', { className: 'qr-svg', innerHTML: qr.createSvgTag({ cellSize: 8, margin: 0, scalable: true }) });
+    const copyBtn = el('button', { type: 'button', className: 'qr-copy', textContent: '링크 복사' });
+    copyBtn.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(url); copyBtn.textContent = '복사했습니다'; }
+      catch { copyBtn.textContent = '복사 실패 — 아래 주소를 직접 복사하세요'; }
+      setTimeout(() => { copyBtn.textContent = '링크 복사'; }, 1800);
+    });
+    qrBox.replaceChildren(
+      el('div', { className: 'qr-card' },
+        el('div', { className: 'qr-head' },
+          el('div', {}, el('div', { className: 'eyebrow', textContent: `그림 ${a.id} · ${a.section} · ${a.book_page}쪽` }), el('h3', { textContent: a.name })),
+          el('button', { type: 'button', className: 'qr-close', textContent: '닫기 ✕', ariaLabel: '닫기' })),
+        svg,
+        el('p', { className: 'qr-hint', textContent: '스마트폰 카메라로 QR 코드를 비추면 활동 앱이 열립니다.' }),
+        el('div', { className: 'qr-foot' }, el('code', { textContent: url }), copyBtn)));
+    qrBox.hidden = false;
+    document.body.classList.add('qr-open');
+    qrBox.querySelector('.qr-close').focus();
+  }
+  function hideQR() {
+    if (!qrBox) return;
+    qrBox.hidden = true;
+    document.body.classList.remove('qr-open');
+  }
+
   // ---------- 활동 카드 ----------
   function card(a) {
     const p = partOf(a);
@@ -205,7 +252,8 @@
         el('div', { className: 'meta' }, `그림 ${a.id}`, el('span', { textContent: `· ${a.book_page}쪽` }), a.featured ? el('span', { className: 'star', textContent: '★ 추천' }) : null),
         el('h4', { textContent: a.name }),
         el('p', { textContent: a.description }),
-        el('div', { className: 'foot' }, el('span', { className: 'tag' }, el('i'), a.type), a.app_url ? el('span', { className: 'open', textContent: '앱 열기 ↗' }) : null)),
+        el('div', { className: 'foot' }, el('span', { className: 'tag' }, el('i'), a.type),
+          el('span', { className: 'acts' }, qrLink(a) ? qrButton(a) : null, a.app_url ? el('span', { className: 'open', textContent: '앱 열기 ↗' }) : null))),
     ];
     const c = a.app_url
       ? el('a', { className: 'card', href: a.app_url, target: '_blank', rel: 'noopener' }, ...inner)
@@ -215,7 +263,8 @@
     c.dataset.type = typeKey(a);
     markCard(c);
     // 누르면: 앱은 새 탭에서 열리고, 이 탭에서는 그 카드를 '마지막으로 연 활동'으로 표시해 화면 가운데로 가져온다
-    c.addEventListener('click', () => {
+    c.addEventListener('click', (e) => {
+      if (e.target.closest('button.qr')) { e.preventDefault(); return; }   // QR 단추: 앱을 열지 않고 QR 만
       touch(a);
       markCards();
       renderRecent();
@@ -256,10 +305,11 @@
         el('div', { className: 'meta' }, el('span', { textContent: `그림 ${a.id}` }), el('span', { className: 't', textContent: ago(r.t) })),
         el('h4', { textContent: a.name }),
         el('div', { className: 'mfoot' },
-          a.app_url ? el('a', { className: 'open', href: a.app_url, target: '_blank', rel: 'noopener', textContent: '앱 열기 ↗' }) : el('span'),
+          el('span', { className: 'acts' }, qrLink(a) ? qrButton(a) : null, a.app_url ? el('a', { className: 'open', href: a.app_url, target: '_blank', rel: 'noopener', textContent: '앱 열기 ↗' }) : null),
           el('button', { type: 'button', className: 'x', textContent: '×', title: '목록에서 지우기', ariaLabel: `${a.name} 목록에서 지우기` }))));
     m.style.setProperty('--pc', partOf(a).color);
     m.addEventListener('click', (e) => {
+      if (e.target.closest('button.qr')) return;                       // QR 단추는 자체 처리
       if (e.target.closest('a.open')) { setTimeout(() => { touch(a); markCards(); renderRecent(); }, 0); return; } // 새 탭이 열린 뒤 맨 앞으로
       if (e.target.closest('button.x')) { forget(a.id); markCards(); renderRecent(); return; }
       goTo(a.id);
